@@ -109,6 +109,15 @@ class Client:
 
     # region Users
 
+    def change_user_nickname(self, guild_id: int, user_id: int, nickname: Optional[str] = None) -> None:
+        """Changes a member's nickname"""
+
+        url = self.api_url + f"/guilds/{guild_id}/members/{user_id}"
+        data = {'nick': nickname}
+        
+        r = requests.patch(url, headers=self.headers, json=data)
+        r.raise_for_status()
+
     # region Current User
 
     @property
@@ -197,6 +206,13 @@ class Client:
         logger.info(f"Created new guild role {role.name} with snowflake: {role.id}")
 
         return role
+
+    def set_guild_role_position(self, guild_id: int, role_id: int, position: int) -> None:
+        """Sets a role's position in the guild's role page"""
+        url = get_api_url(self.api_version) + f"/guilds/{guild_id}/roles"
+        data = [{'id': role_id, 'position': position}]
+        response = requests.patch(url, headers=self.headers, json=data)
+        response.raise_for_status()
 
     def get_guild_roles(self, guild: Union[Guild, int]) -> List[Role]:
         """Get a guild's roles by guild id or Guild object."""
