@@ -13,14 +13,14 @@ class Role:
     hoist: Optional[bool]
     managed: Optional[bool]
     mentionable: Optional[bool]
-    # color: int
+    color: int
 
     _client: Optional[Client]
 
     def __init__(
             self, id: int, name: Optional[str] = None, *, position: Optional[int] = None, hoist: Optional[bool] = None,
-            managed: Optional[bool] = None, mentionable: Optional[bool] = None,
-            client: Optional[Client] = None) -> None:
+            managed: Optional[bool] = None, mentionable: Optional[bool] = None, client: Optional[Client] = None,
+            color: Optional[int] = None) -> None:
 
         self.id = id
         self.name = name
@@ -28,6 +28,7 @@ class Role:
         self.hoist = hoist
         self.managed = managed
         self.mentionable = mentionable
+        self.color = color
 
         self._client = client
 
@@ -41,7 +42,8 @@ class Role:
             hoist=d["hoist"],
             managed=d["managed"],
             mentionable=d["mentionable"],
-            client=client
+            client=client,
+            color=d["color"]
         )
 
     @staticmethod
