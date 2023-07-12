@@ -147,7 +147,7 @@ class DiscordUserAPI():
 
         else:
             logger.error(
-                f"Could not add user with id {user_id} to guild with id {guild_id}. Response code {code}")
+                f"Could not add user with id {user_id} to guild with id {guild_id}. Response code {code}, body: {response.content}")
             return False
 
 
