@@ -135,18 +135,19 @@ class DiscordUserAPI():
             data["deaf"] = deaf
 
         response = requests.put(url, headers=headers, json=data)
+        code = response.status_code
 
-        if response.status_code == 201:
+        if code == 201:
             logger.info(f"Successfully added user with id {user_id} to guild with id {guild_id}")
             return True
 
-        elif response.status_code == 204:
+        elif code == 204:
             logger.warning(f"User with id {user_id} already is a member of the guild with id {guild_id}")
             return False
 
         else:
             logger.error(
-                f"Could not add user with id {user_id} to guild with id {guild_id}")
+                f"Could not add user with id {user_id} to guild with id {guild_id}. Response code {code}")
             return False
 
 
