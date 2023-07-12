@@ -114,7 +114,7 @@ class Client:
 
         url = self.api_url + f"/guilds/{guild_id}/members/{user_id}"
         data = {'nick': nickname}
-        
+
         r = requests.patch(url, headers=self.headers, json=data)
         r.raise_for_status()
 
@@ -272,8 +272,6 @@ class Client:
         return channels
 
     # endregion
-
-
 
     # region Channels
 

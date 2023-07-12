@@ -19,7 +19,8 @@ class Role:
 
     def __init__(
             self, id: int, name: Optional[str] = None, *, position: Optional[int] = None, hoist: Optional[bool] = None,
-            managed: Optional[bool] = None, mentionable: Optional[bool] = None, client: Optional[Client] = None, color: Optional[int] = None) -> None:
+            managed: Optional[bool] = None, mentionable: Optional[bool] = None, client: Optional[Client] = None,
+            color: Optional[int] = None) -> None:
 
         self.id = id
         self.name = name
