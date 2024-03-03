@@ -302,9 +302,9 @@ class Client:
 
         return Channel.from_dict(json_response)
 
-    def create_channel(self, name: str, category: int, guild: int, category: bool) -> Channel:
+    def create_channel(self, name: str, category: int, guild: int, is_category: bool = False) -> Channel:
         url = get_api_url(self.api_version) + f"/guilds/{guild}/channels"
-        if category:
+        if is_category:
             ctype = 4
         else:
             ctype = 0
