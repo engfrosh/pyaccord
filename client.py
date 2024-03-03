@@ -289,6 +289,36 @@ class Client:
 
         return Channel.from_dict(json_response)
 
+    def set_channel_name(self, channel_id: int, name: str) -> Channel:
+        url = get_api_url(self.api_version) + f"/channels/{channel_id}"
+        data = {"name": name}
+        response = requests.patch(url, headers=self.headers, json=data)
+
+        response.raise_for_status()
+
+        json_response = response.json()
+
+        logger.debug(f"Got channel info: {json_response}")
+
+        return Channel.from_dict(json_response)
+
+    def create_channel(self, name: str, category: int, guild: int, category: bool) -> Channel:
+        url = get_api_url(self.api_version) + f"/guilds/{guild}/channels"
+        if category:
+            ctype = 4
+        else:
+            ctype = 0
+        data = {"name": name, "type": ctype, "parent_id": category}
+        response = requests.post(url, headers=self.headers, json=data)
+
+        response.raise_for_status()
+
+        json_response = response.json()
+
+        logger.debug(f"Got channel info: {json_response}")
+
+        return Channel.from_dict(json_response)
+
     def send_channel_message(self, channel_id: int, content: str) -> dict:
         """Send a message to a channel"""
 
