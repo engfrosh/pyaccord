@@ -208,7 +208,7 @@ class Client:
         return role
 
     def rename_role(self, guild: int, role: int, name: str) -> Role:
-        url = get_api_url(self.api_version) + f"/guilds/{guild}/roles{role}"
+        url = get_api_url(self.api_version) + f"/guilds/{guild}/roles/{role}"
         data = {"name": name}
         response = requests.patch(url, headers=self.headers, json=data)
 
