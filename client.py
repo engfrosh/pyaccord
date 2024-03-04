@@ -303,11 +303,15 @@ class Client:
         return Channel.from_dict(json_response)
 
     def set_channel_name(self, channel_id: int, name: str) -> Channel:
+        ch = self.get_channel(channel_id)
         url = get_api_url(self.api_version) + f"/channels/{channel_id}"
         data = {"name": name}
-        response = requests.patch(url, headers=self.headers, json=data)
-
-        response.raise_for_status()
+        try:
+            response = requests.patch(url, headers=self.headers, json=data)
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            print(err.response.text)
+            raise err
 
         json_response = response.json()
 
