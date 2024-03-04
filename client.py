@@ -207,6 +207,19 @@ class Client:
 
         return role
 
+    def rename_role(self, guild: int, role: int, name: str) -> Role:
+        url = get_api_url(self.api_version) + f"/guilds/{guild}/roles{role}"
+        data = {"name": name}
+        response = requests.patch(url, headers=self.headers, json=data)
+
+        response.raise_for_status()
+
+        json_response = response.json()
+
+        logger.debug(f"Got role info: {json_response}")
+
+        return Role.from_dict(json_response)
+
     def set_guild_role_position(self, guild_id: int, role_id: int, position: int) -> None:
         """Sets a role's position in the guild's role page"""
         url = get_api_url(self.api_version) + f"/guilds/{guild_id}/roles"
