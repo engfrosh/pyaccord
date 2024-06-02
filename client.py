@@ -246,6 +246,19 @@ class Client:
 
         return roles
 
+    def set_roles_for_member(self, guild: Guild | int, member: int, roles: List[int]):
+        if isinstance(guild, Guild):
+            guild_id = guild.id
+        else:
+            guild_id = guild
+        
+        user_id = member
+        url = self.api_url + f"/guilds/{guild_id}/members/{user_id}"
+        json = {"roles": roles}
+        r = requests.patch(url, headers=self.headers, json=json)
+        r.raise_for_status()
+        return
+
     def add_role_to_guild_member(self, guild: Guild | int, member: int, role: Union[Role, int]) -> None:
 
         if isinstance(guild, Guild):
